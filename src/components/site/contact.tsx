@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { validateContact, type ContactFields } from "@/lib/contact";
 import { SectionHeading } from "./sections";
 
-export function Contact({ subject }: { subject: string }) {
+export function Contact({ subject, subjectTick }: { subject: string; subjectTick: number }) {
   const [fields, setFields] = useState<ContactFields>({ name: "", email: "", subject: "", message: "" });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFields, string>>>({});
   const [confirmed, setConfirmed] = useState(false);
-  useEffect(() => { if (subject) { setFields(current => ({ ...current, subject })); setConfirmed(false); } }, [subject]);
+  useEffect(() => { if (subject) { setFields(current => ({ ...current, subject })); setConfirmed(false); } }, [subject, subjectTick]);
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const result = validateContact(fields);
@@ -24,6 +24,7 @@ export function Contact({ subject }: { subject: string }) {
       return;
     }
     setErrors({});
+    setFields({ name: "", email: "", subject: "", message: "" });
     setConfirmed(true);
   }
   function update(key: keyof ContactFields, value: string) {
@@ -57,7 +58,7 @@ export function Contact({ subject }: { subject: string }) {
         </div>)}</div>
         <Button type="submit" size="lg" className="submit-button">Enviar consulta <ArrowUpRight/></Button>
         <p className="form-privacy">Tus datos no se guardan ni se comparten. Todos los campos son obligatorios.</p>
-        {confirmed && <div className="form-success" role="status"><CheckCircle2/><div><strong>¡Tu consulta pasó la validación!</strong><p>Esta es una demostración: no se envió ningún correo ni se guardaron tus datos.</p></div></div>}
+        {confirmed && <div className="form-success" role="status"><CheckCircle2/><div><strong>¡Gracias por contactarte con TecnoSoluciones SRL!</strong><p>Tu consulta fue registrada correctamente (demostración académica).</p></div></div>}
       </form>
     </div>
   </div></section>;

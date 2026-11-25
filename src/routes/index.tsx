@@ -20,6 +20,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [subject, setSubject] = useState("");
+  const [subjectTick, setSubjectTick] = useState(0);
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -31,7 +32,8 @@ function Index() {
   }, []);
   function consult(service: string) {
     setSubject(`Consulta: ${service}`);
+    setSubjectTick(tick => tick + 1);
     document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
   }
-  return <><a className="skip-link" href="#contenido">Ir al contenido</a><Header/><main id="contenido"><Hero/><Services onConsult={consult}/><About/><Areas/><Projects onConsult={consult}/><Contact subject={subject}/></main><Footer/></>;
+  return <><a className="skip-link" href="#contenido">Ir al contenido</a><Header/><main id="contenido"><Hero/><Services onConsult={consult}/><About/><Areas/><Projects onConsult={consult}/><Contact subject={subject} subjectTick={subjectTick}/></main><Footer/></>;
 }
