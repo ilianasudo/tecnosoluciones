@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application structure
+- Keep the explicitly requested one-page experience at `/`, with section anchors and focused modules under `src/components/site`, so navigation and section ownership stay maintainable.
+- Keep demo form validation in a browser-safe shared module without persistence or network submission, so demonstrations never pretend to deliver messages.
+- Define all visual styles and semantic color tokens in `src/styles.css`; controls use the existing Button component and named variants for consistent theming.
